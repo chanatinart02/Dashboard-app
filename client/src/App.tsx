@@ -42,6 +42,9 @@ import {
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
 
+// custom components
+import { Sider } from "./components/layout/sider";
+
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
   const token = localStorage.getItem("token");
@@ -178,7 +181,10 @@ function App() {
                 <Route
                   element={
                     <Authenticated fallback={<CatchAllNavigate to="/login" />}>
-                      <ThemedLayoutV2 Header={() => <Header sticky />}>
+                      <ThemedLayoutV2
+                        Header={() => <Header sticky />}
+                        Sider={() => <Sider />}
+                      >
                         <Outlet />
                       </ThemedLayoutV2>
                     </Authenticated>
