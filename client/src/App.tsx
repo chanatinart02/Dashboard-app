@@ -24,7 +24,6 @@ import routerBindings, {
 import dataProvider from "@refinedev/simple-rest";
 import axios, { AxiosRequestConfig } from "axios";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "./interfaces/google";
 import {
@@ -44,6 +43,8 @@ import { parseJwt } from "./utils/parse-jwt";
 
 // custom components
 import { Sider } from "./components/layout/sider";
+import { Title } from "./components/layout/title";
+import { Header } from "./components/header";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -183,7 +184,7 @@ function App() {
                     <Authenticated fallback={<CatchAllNavigate to="/login" />}>
                       <ThemedLayoutV2
                         Header={() => <Header sticky />}
-                        Sider={() => <Sider />}
+                        Sider={() => <Sider Title={Title} />}
                       >
                         <Outlet />
                       </ThemedLayoutV2>
