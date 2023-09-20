@@ -38,13 +38,34 @@ import {
   CategoryList,
   CategoryShow,
 } from "./pages/categories";
-import { Login } from "./pages/login";
+
+import {
+  Login,
+  Home,
+  Agents,
+  MyProfile,
+  PropertyDetails,
+  AllProperties,
+  CreateProperty,
+  AgentProfile,
+  EditProperty,
+} from "./pages";
+
 import { parseJwt } from "./utils/parse-jwt";
 
 // custom components
 import { Sider } from "./components/layout/sider";
 import { Title } from "./components/layout/title";
 import { Header } from "./components/header";
+
+// Navbar icon
+import {
+  AccountCircleOutlined,
+  ChatBubbleOutline,
+  PeopleAltOutlined,
+  StarOutlineRounded,
+  VillaOutlined,
+} from "@mui/icons-material";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -150,23 +171,54 @@ function App() {
               notificationProvider={notificationProvider}
               routerProvider={routerBindings}
               authProvider={authProvider}
+              DashboardPage={Home}
               resources={[
                 {
-                  name: "blog_posts",
-                  list: "/blog-posts",
-                  create: "/blog-posts/create",
-                  edit: "/blog-posts/edit/:id",
-                  show: "/blog-posts/show/:id",
+                  name: "properties",
+                  list: "/properties",
+                  create: "/properties/create",
+                  edit: "/properties/edit/:id",
+                  show: "/properties/show/:id",
+                  icon: <VillaOutlined />,
                   meta: {
                     canDelete: true,
                   },
                 },
                 {
-                  name: "categories",
-                  list: "/categories",
-                  create: "/categories/create",
-                  edit: "/categories/edit/:id",
-                  show: "/categories/show/:id",
+                  name: "agents",
+                  list: "/agents",
+                  show: "/agents/show/:id",
+                  icon: <VillaOutlined />,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "review",
+                  list: "/review",
+                  show: "/review/show/:id",
+                  icon: <StarOutlineRounded />,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "messages",
+                  list: "/messages",
+                  show: "/messages/show/:id",
+                  icon: <ChatBubbleOutline />,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "my-profile",
+                  list: "/my-profile",
+                  show: "/my-profile/properties/show/:id",
+                  options: {
+                    label: "My Profile",
+                  },
+                  icon: <AccountCircleOutlined />,
                   meta: {
                     canDelete: true,
                   },
