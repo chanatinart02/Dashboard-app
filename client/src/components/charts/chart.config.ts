@@ -1,5 +1,6 @@
 import { ApexOptions } from "apexcharts";
 
+// mock data for Total Revenue
 export const TotalRevenueSeries = [
   {
     name: "Last Month",
@@ -11,50 +12,51 @@ export const TotalRevenueSeries = [
   },
 ];
 
+// Configuration options for the chart
 export const TotalRevenueOptions: ApexOptions = {
   chart: {
-    type: "bar",
+    type: "bar", // Set the chart type to a bar chart
     toolbar: {
-      show: false,
+      show: false, // Hide the toolbar
     },
   },
-  colors: ["#475BE8", "#CFC8FF"],
+  colors: ["#475BE8", "#CFC8FF"], // Define the colors for the bars
   plotOptions: {
     bar: {
-      borderRadius: 4,
-      horizontal: false,
-      columnWidth: "55%",
+      borderRadius: 4, // Set the corner radius of the bars
+      horizontal: false, // Set the bars to be vertical
+      columnWidth: "55%", // Set the width of the bars
     },
   },
   dataLabels: {
-    enabled: false,
+    enabled: false, // Disable data labels (labels on the bars)
   },
   grid: {
-    show: false,
+    show: false, // Hide the grid lines
   },
   stroke: {
-    colors: ["transparent"],
-    width: 4,
+    colors: ["transparent"], // Set the stroke color of the bars
+    width: 4, // Set the stroke width of the bars
   },
   xaxis: {
-    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"], // Define the categories on the x-axis
   },
   yaxis: {
     title: {
-      text: "$ (thousands)",
+      text: "$ (thousands)", // Set the title of the y-axis
     },
   },
   fill: {
-    opacity: 1,
+    opacity: 1, // Set the fill opacity of the bars
   },
   legend: {
-    position: "top",
-    horizontalAlign: "right",
+    position: "top", // Set the position of the legend
+    horizontalAlign: "right", // Set the horizontal alignment of the legend
   },
   tooltip: {
     y: {
       formatter(val: number) {
-        return `$ ${val} thousands`;
+        return `$ ${val} thousands`; // Customize the tooltip format
       },
     },
   },

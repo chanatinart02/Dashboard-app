@@ -65,6 +65,7 @@ import {
   PeopleAltOutlined,
   StarOutlineRounded,
   VillaOutlined,
+  DashboardOutlined,
 } from "@mui/icons-material";
 
 const axiosInstance = axios.create();
@@ -171,8 +172,15 @@ function App() {
               notificationProvider={notificationProvider}
               routerProvider={routerBindings}
               authProvider={authProvider}
-              DashboardPage={Home}
               resources={[
+                {
+                  name: "dashboard",
+                  list: "/",
+                  meta: {
+                    label: "Dashboard",
+                    icon: <DashboardOutlined />,
+                  },
+                },
                 {
                   name: "properties",
                   list: "/properties",
@@ -243,7 +251,8 @@ function App() {
                     </Authenticated>
                   }
                 >
-                  <Route
+                  <Route index path="/" element={<Home />} />
+                  {/* <Route
                     index
                     element={<NavigateToResource resource="blog_posts" />}
                   />
@@ -258,7 +267,7 @@ function App() {
                     <Route path="create" element={<CategoryCreate />} />
                     <Route path="edit/:id" element={<CategoryEdit />} />
                     <Route path="show/:id" element={<CategoryShow />} />
-                  </Route>
+                  </Route> */}
                   <Route path="*" element={<ErrorComponent />} />
                 </Route>
                 <Route
@@ -270,6 +279,7 @@ function App() {
                 >
                   <Route path="/login" element={<Login />} />
                 </Route>
+                <Route path="/" element={<Home />} />
               </Routes>
 
               <RefineKbar />
