@@ -26,18 +26,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "./interfaces/google";
-import {
-  BlogPostCreate,
-  BlogPostEdit,
-  BlogPostList,
-  BlogPostShow,
-} from "./pages/blog-posts";
-import {
-  CategoryCreate,
-  CategoryEdit,
-  CategoryList,
-  CategoryShow,
-} from "./pages/categories";
 
 import {
   Login,
@@ -66,6 +54,7 @@ import {
   StarOutlineRounded,
   VillaOutlined,
   DashboardOutlined,
+  Reviews,
 } from "@mui/icons-material";
 
 const axiosInstance = axios.create();
@@ -251,23 +240,36 @@ function App() {
                     </Authenticated>
                   }
                 >
-                  <Route index path="/" element={<Home />} />
-                  {/* <Route
+                  <Route index element={<Home />} />
+                  {/* Route for Properties */}
+                  <Route
                     index
-                    element={<NavigateToResource resource="blog_posts" />}
+                    element={<NavigateToResource resource="properties" />}
                   />
-                  <Route path="/blog-posts">
-                    <Route index element={<BlogPostList />} />
-                    <Route path="create" element={<BlogPostCreate />} />
-                    <Route path="edit/:id" element={<BlogPostEdit />} />
-                    <Route path="show/:id" element={<BlogPostShow />} />
+                  <Route path="/properties">
+                    <Route index element={<AllProperties />} />
+                    <Route path="create" element={<CreateProperty />} />
+                    <Route path="show/:id" element={<PropertyDetails />} />
+                    <Route path="edit/:id" element={<EditProperty />} />
                   </Route>
-                  <Route path="/categories">
-                    <Route index element={<CategoryList />} />
-                    <Route path="create" element={<CategoryCreate />} />
-                    <Route path="edit/:id" element={<CategoryEdit />} />
-                    <Route path="show/:id" element={<CategoryShow />} />
-                  </Route> */}
+
+                  <Route path="/agents">
+                    <Route index element={<Agents />} />
+                    <Route path="show/:id" element={<AgentProfile />} />
+                  </Route>
+
+                  <Route path="/my-profile">
+                    <Route index element={<MyProfile />} />
+                  </Route>
+
+                  <Route path="/review">
+                    <Route index element={<Home />} />
+                  </Route>
+
+                  <Route path="/messages">
+                    <Route index element={<Home />} />
+                  </Route>
+
                   <Route path="*" element={<ErrorComponent />} />
                 </Route>
                 <Route
@@ -279,7 +281,6 @@ function App() {
                 >
                   <Route path="/login" element={<Login />} />
                 </Route>
-                <Route path="/" element={<Home />} />
               </Routes>
 
               <RefineKbar />

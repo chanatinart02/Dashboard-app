@@ -1,7 +1,7 @@
 import React from "react";
 
-function allProperties() {
+function AllProperties() {
   return <div>allProperties</div>;
 }
 
-export default allProperties;
+export default AllProperties;

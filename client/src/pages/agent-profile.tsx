@@ -1,7 +1,7 @@
 import React from "react";
 
-function agentProfile() {
+function AgentProfile() {
   return <div>agentProfile</div>;
 }
 
-export default agentProfile;
+export default AgentProfile;
