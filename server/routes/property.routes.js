@@ -11,8 +11,8 @@ import {
 const router = express.Router();
 
 router.route("/").get(getAllProperties);
-router.route("/:id").get(getPropertyDetail);
 router.route("/").post(createProperty);
+router.route("/:id").get(getPropertyDetail);
 router.route("/:id").patch(updateProperty);
 router.route("/:id").delete(deleteProperty);
 
