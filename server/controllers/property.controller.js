@@ -12,8 +12,45 @@ cloudinary.config({
 });
 
 const getAllProperties = async (req, res) => {
+  // Destructuring request query parameters
+  const {
+    _end, // Pagination: End index (จำนวนรายการที่จะดึงข้อมูล)
+    _order, // Sorting order: 'ASC' or 'DESC'
+    _start, // Pagination: Start index (starting from 0)
+    _sort, // Property to sort by (e.g., 'title')
+    title_like = "", // Search query for property title (default is empty string)
+    propertyType = "", // Filter by property type (default is empty string)
+  } = req.query;
+
+  // Initialize an empty query object to filter properties
+  const query = {};
+
+  // Check if a property type is provided in the query
+  if (propertyType !== "") {
+    query.propertyType = propertyType; // Add propertyType filter to the query
+  }
+
+  // Check if a title search query is provided
+  if (title_like) {
+    // Using regular expression for a case-insensitive search on the title field
+    query.title = { $regex: title_like, $options: "i" };
+  }
+
   try {
-    const properties = await Property.find({}).limit(req.query._end);
+    // Count the total number of properties that match the query
+    const count = await Property.countDocuments({ query });
+
+    // Retrieve properties based on the query, with pagination and sorting
+    const properties = await Property.find(query)
+      .limit(_end) // Limit the number of results to retrieve
+      .skip(_start) // Skip the specified number of results
+      .sort({ [_sort]: _order }); // Sort properties by the specified property
+
+    // Set response headers to provide total count for pagination in the frontend
+    res.header("x-total-count", count);
+    res.header("Access-Control-Expose-Headers", "x-total-count");
+
+    // Send the properties as a JSON response
     res.status(200).json(properties);
   } catch (error) {
     res.status(500).json({ message: error.message });
