@@ -57,7 +57,18 @@ const getAllProperties = async (req, res) => {
   }
 };
 
-const getPropertyDetail = async (req, res) => {};
+const getPropertyDetail = async (req, res) => {
+  const { id } = req.params;
+  const propertyExists = await Property.findOne({ _id: id }).populate(
+    "creator"
+  );
+
+  if (propertyExists) {
+    res.status(200).json(propertyExists);
+  } else {
+    res.status(404).json({ message: "Property not found" });
+  }
+};
 
 const createProperty = async (req, res) => {
   try {
@@ -103,7 +114,36 @@ const createProperty = async (req, res) => {
 };
 
 const updateProperty = async (req, res) => {};
-const deleteProperty = async (req, res) => {};
+
+const deleteProperty = async (req, res) => {
+  try {
+    const { id } = req.params; // Extract the 'id' parameter from the request
+
+    //   Find the property to delete by its '_id'. Populate 'creator' to get user info
+    const propertyToDelete = await Property.findById({ _id: id }).populate(
+      "creator"
+    );
+
+    if (!propertyToDelete) throw new Error("Property not found");
+
+    const session = await mongoose.startSession(); // Start a new database session
+    session.startTransaction(); // Start a new transaction within the session
+
+    propertyToDelete.deleteOne({ session }); //  Delete the property.
+
+    //  Remove the property reference from user's 'allProperties'
+    propertyToDelete.creator[0].allProperties.pull(propertyToDelete);
+
+    // Save the user after removing the property reference
+    await propertyToDelete.creator[0].save({ session });
+
+    await session.commitTransaction(); // Commit the transaction
+
+    res.status(200).json({ message: "Property deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export {
   getAllProperties,
