@@ -144,23 +144,26 @@ function AllProperties() {
                   </MenuItem>
                 ))}
               </Select>
+              {/* Button to Add New Property */}
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <CustomButton
+                  title="Add Property"
+                  handleClick={() => {
+                    navigate("/properties/create");
+                  }}
+                  backgroundColor="#475be8"
+                  color="#fcfcfc"
+                  icon={<Add />}
+                />
+              </Stack>
             </Box>
           </Box>
         </Stack>
       </Box>
-
-      {/* Button to Add New Property */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <CustomButton
-          title="Add Property"
-          handleClick={() => {
-            navigate("/properties/create");
-          }}
-          backgroundColor="#475be8"
-          color="#fcfcfc"
-          icon={<Add />}
-        />
-      </Stack>
 
       {/* Display All Created Properties */}
       <Box mt="20px" sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
